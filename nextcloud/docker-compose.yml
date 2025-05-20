@@ -11,19 +11,11 @@ services:
     networks:
       - global_net
     environment:
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_HOST=${MYSQL_HOST}
-      - REDIS_HOST=${REDIS_HOST}
-    entrypoint: >
-      bash -c "
-        mysql -h '${MYSQL_HOST}' -u root -p '${MYSQL_ROOT_PASSWORD}' << EOF
-          CREATE DATABASE IF NOT EXISTS '${MYSQL_DATABASE}'';
-          CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
-          GRANT ALL PRIVILEGES ON '{MYSQL_DATABASE}'.* TO '$MYSQL_USER'@'%';
-        EOF
-      "
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_HOST=db
+      - REDIS_HOST=redis
 
 networks:
   global_net:
