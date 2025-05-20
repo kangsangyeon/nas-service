@@ -6,6 +6,8 @@ services:
     image: mariadb:lts
     restart: always
     command: --transaction-isolation=READ-COMMITTED
+    ports:
+      - "3306:3306"
     volumes:
       - type: bind
         source: ./db_data
