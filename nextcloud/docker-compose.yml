@@ -1,9 +1,7 @@
 services:
   app:
-    image: nextcloud
+    image: nextcloud:fpm
     restart: always
-    ports:
-      - "8080:80"
     volumes:
       - type: volume
         source: nextcloud
@@ -16,6 +14,24 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_HOST=db
       - REDIS_HOST=redis
+
+  # Note: Nginx is an external service. You can find more information about the configuration here:
+  # https://hub.docker.com/_/nginx/
+  web:
+    image: nginx:alpine-slim
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+    volumes:
+      # https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: true
+    volumes_from:
+      - app
 
 networks:
   global_net:
