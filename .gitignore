@@ -19,3 +19,4 @@
 # End of https://www.toptal.com/developers/gitignore/api/linux
 
 .env
+global_net/db_data
