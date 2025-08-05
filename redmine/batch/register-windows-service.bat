@@ -1,0 +1,1 @@
+sc create "BitnamiRedmine" binpath="docker-up.bat" displayName="BitnamiRedmine" start=auto
